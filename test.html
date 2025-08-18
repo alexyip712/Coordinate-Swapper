@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordinate Swapper</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        textarea { width: 100%; height: 100px; margin-bottom: 10px; }
+        #output { font-weight: bold; color: green; }
+        #copyButton { 
+            margin-left: 10px; 
+            padding: 5px 10px; 
+            cursor: pointer; 
+            background-color: #4CAF50; 
+            color: white; 
+            border: none; 
+            border-radius: 3px; 
+        }
+        #copyButton:hover { background-color: #45a049; }
+        #copyFeedback { 
+            margin-left: 10px; 
+            color: blue; 
+            font-size: 14px; 
+            display: none; 
+        }
+        #clearCheckbox { margin-left: 10px; }
+    </style>
+</head>
+<body>
+    <h1>Coordinate Swapper</h1>
+    <p>Paste your coordinates in the format (lat, lng) below, and it will instantly swap to (lng, lat).</p>
+    <textarea id="input" placeholder="e.g., (22.2, 114.4)"></textarea>
+    <div>
+        Swapped Output: <span id="output"></span>
+        <button id="copyButton" style="display: none;">Copy</button>
+        <span id="copyFeedback">Copied!</span>
+        <label><input type="checkbox" id="clearCheckbox"> Clear input after copy</label>
+    </div>
+
+    <script>
+        const input = document.getElementById('input');
+        const output = document.getElementById('output');
+        const copyButton = document.getElementById('copyButton');
+        const copyFeedback = document.getElementById('copyFeedback');
+        const clearCheckbox = document.getElementById('clearCheckbox');
+
+        input.addEventListener('input', function() {
+            const text = input.value.trim();
+            if (!text) {
+                output.textContent = '';
+                copyButton.style.display = 'none';
+                copyFeedback.style.display = 'none';
+                return;
+            }
+
+            // Remove parentheses and split by comma
+            const cleaned = text.replace(/^\(|\)$/g, '').trim();
+            const parts = cleaned.split(',').map(part => part.trim());
+
+            if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
+                const lat = parts[0];
+                const lng = parts[1];
+                output.textContent = `${lng}, ${lat}`;
+                copyButton.style.display = 'inline';
+            } else {
+                output.textContent = 'Invalid format. Use (number, number)';
+                copyButton.style.display = 'none';
+                copyFeedback.style.display = 'none';
+            }
+        });
+
+        copyButton.addEventListener('click', function() {
+            const textToCopy = output.textContent;
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                copyFeedback.style.display = 'inline';
+                if (clearCheckbox.checked) {
+                    input.value = '';
+                    output.textContent = '';
+                    copyButton.style.display = 'none';
+                    copyFeedback.style.display = 'none';
+                }
+                setTimeout(() => {
+                    copyFeedback.style.display = 'none';
+                }, 1000); // Hide feedback after 1 second
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        });
+    </script>
+</body>
+</html>
