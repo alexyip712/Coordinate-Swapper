@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta name="google-site-verification" content="Nftltg8McIt4ZV6rUL8PmF60PdBopHUvKFSOkT3evko" />
+    <meta name="google-site-verification" content="Nftltg8McIt4ZV6rUL8PmF60PdBopHUvKFSOkT3evko" /> 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Instantly swap (lat, lng) to (lng, lat) with our free online coordinate converter tool. Copy results with one click and optionally clear input. Fast and easy lat long switcher!">
+    <meta name="keywords" content="coordinate converter, lat long swapper, latitude longitude converter, coordinate format tool, online coordinate switcher, GPS coordinate converter, free coordinate tool">
+    <meta name="author" content="Coordinate Swapper Tool">
+    <title>Free Online Coordinate Converter - Swap Lat Long Instantly</title>
     <title>Coordinate Swapper</title>
     <style>
         body { font-family: Arial, sans-serif; margin: 20px; }
@@ -29,15 +33,16 @@
     </style>
 </head>
 <body>
-    <h1>Coordinate Swapper</h1>
-    <p>Paste your coordinates in the format (lat, lng) below, and it will instantly swap to (lng, lat).</p>
-    <textarea id="input" placeholder="e.g., (22.2, 114.4)"></textarea>
+    <h1>Instant Coordinate Converter Tool</h1>
+    <p>Paste your coordinates in the format (lat, lng) below to instantly swap to (lng, lat) with our free lat long switcher. Copy results with one click!</p>
+    <textarea id="input" placeholder="e.g., (22.284581475943337, 114.14787843998774)"></textarea>
     <div>
         Swapped Output: <span id="output"></span>
         <button id="copyButton" style="display: none;">Copy</button>
         <span id="copyFeedback">Copied!</span>
         <label><input type="checkbox" id="clearCheckbox"> Clear input after copy</label>
     </div>
+    <p>Use this online coordinate converter for quick GPS coordinate swapping. Perfect for GIS, mapping, and navigation tasks.</p>
 
     <script>
         const input = document.getElementById('input');
@@ -62,7 +67,7 @@
             if (parts.length === 2 && !isNaN(parts[0]) && !isNaN(parts[1])) {
                 const lat = parts[0];
                 const lng = parts[1];
-                output.textContent = `${lng}, ${lat}`;
+                output.textContent = `(${lng}, ${lat})`;
                 copyButton.style.display = 'inline';
             } else {
                 output.textContent = 'Invalid format. Use (number, number)';
@@ -91,4 +96,5 @@
     </script>
 </body>
 </html>
+
 
